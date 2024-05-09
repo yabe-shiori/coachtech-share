@@ -7,7 +7,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-// フォームデータの型定義
 interface FormData {
     name: string;
     email: string;
@@ -15,7 +14,7 @@ interface FormData {
 }
 
 export const Register = () => {
-    const navigate = useNavigate(); // useNavigateフックを初期化
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,10 +24,8 @@ export const Register = () => {
 
     const onSubmit = async (data: FormData) => {
         try {
-            // Firebaseユーザー登録処理
             await createUserWithEmailAndPassword(auth, data.email, data.password);
 
-            // Firebaseのユーザー情報をLaravelのAPIエンドポイントに送信
             const response = await fetch("/api/register", {
                 method: "POST",
                 headers: {
@@ -40,8 +37,7 @@ export const Register = () => {
             if (response.ok) {
                 console.log("ユーザー登録が成功しました");
 
-                // ユーザー登録が成功したら"/"へリダイレクト
-                navigate("/", { state: { user: { name: data.name } } }); // "/"へリダイレクト
+                navigate("/", { state: { user: { name: data.name } } });
             } else {
                 console.error("ユーザー登録が失敗しました");
                 // 失敗した場合の処理
@@ -49,7 +45,6 @@ export const Register = () => {
         } catch (error: any) {
             console.error("エラーが発生しました", error);
 
-            // Firebaseのエラーコードに応じて、適切なメッセージを表示
             if (error.code === "auth/email-already-in-use") {
                 alert("このメールアドレスは既に使用されています。別のメールアドレスをお試しください。");
             } else if (error.code === "auth/invalid-email") {
@@ -61,7 +56,7 @@ export const Register = () => {
     };
 
     return (
-         <Guest>
+        <Guest>
             <h2 className="text-lg text-center font-bold">新規登録</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
