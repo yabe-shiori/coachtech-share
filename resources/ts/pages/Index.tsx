@@ -16,10 +16,10 @@ export const Index = () => {
     return (
         <div className="flex bg-gray-900 text-white">
             <p>{user.name}</p>
-            <div className="w-1/5 h-screen">
+            <div className="w-1/4 h-screen">
                 <SideNav user={user} />
             </div>
-            <div className="w-4/5">
+            <div className="w-3/4">
                 <p className="text-2xl font-bold p-2">ホーム</p>
                 <div>
                     <Message />

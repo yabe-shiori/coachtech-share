@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import PrimaryButton from "./PrimaryButton";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; // useNavigateをインポート
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     user: { uid: string };
@@ -15,7 +15,7 @@ type FormData = {
 export const SideNav: React.FC<Props> = ({ user }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [errorMessage, setErrorMessage] = useState<string>("");
-    const navigate = useNavigate(); // useNavigateを使用して履歴を取得
+    const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         const { postContent } = data;
@@ -45,18 +45,17 @@ export const SideNav: React.FC<Props> = ({ user }) => {
             setErrorMessage("投稿に失敗しました。");
         }
     };
+
     const handleLogout = async () => {
         try {
             const auth = getAuth();
             await signOut(auth);
-            // ログアウト後にリダイレクト
             navigate("/login");
             console.log("ログアウトしました");
         } catch (error) {
             console.error("ログアウトエラー:", error);
         }
     };
-
 
     return (
         <div className="bg-gray-900 text-white p-5">
@@ -68,7 +67,7 @@ export const SideNav: React.FC<Props> = ({ user }) => {
                 <a>ホーム</a>
             </div>
             <div className="flex items-center mt-4">
-                <img src="/icons/logout.png" className="w-6 mr-2" />
+                <img src="/icons/logout.png" className="w-6 mr-2 cursor-pointer" onClick={handleLogout} />
                 <button onClick={handleLogout}>ログアウト</button>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
