@@ -25,14 +25,16 @@ export const Register = () => {
     const onSubmit = async (data: FormData) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-            const user = userCredential.user; // ユーザーオブジェクトを定義
+            const user = userCredential.user;
+
+            const uid = user.uid;
 
             const response = await fetch("/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name: data.name, email: data.email, password: data.password }),
+                body: JSON.stringify({ name: data.name, email: data.email, password: data.password, uid: uid }),
             });
 
             if (response.ok) {
