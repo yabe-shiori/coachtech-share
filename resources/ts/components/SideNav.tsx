@@ -1,72 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import PrimaryButton from "./PrimaryButton";
 
-export const SideNav = (props) => {
-    const { user } = props; // propsからuser情報を取得
+interface Props {
+    user: { uid: string };
+}
 
-    const [postContent, setPostContent] = useState(""); // 投稿内容を保持するstate
+type FormData = {
+    postContent: string;
+};
 
-    const handlePostSubmit = async (e) => {
-        e.preventDefault();
+export const SideNav: React.FC<Props> = ({ user }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
-        // 投稿内容が空の場合は何もしない
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        const { postContent } = data;
+
         if (!postContent.trim()) {
+            setErrorMessage("投稿内容は必須です。");
             return;
         }
 
         try {
-            // バックエンドのAPIエンドポイントに投稿データを送信する
             const response = await fetch("/api/posts", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ body: postContent, user_id: user.uid }) // ユーザーのuidを含めて投稿データを送信
+                body: JSON.stringify({ body: postContent, user_id: user.uid })
             });
 
             if (!response.ok) {
-                throw new Error("投稿に失敗しました");
+                throw new Error("Failed to post");
             }
 
-            // 投稿成功時の処理（例: 投稿内容をクリアする）
-            setPostContent("");
+            setErrorMessage("");
         } catch (error) {
-            console.error("投稿エラー:", error);
-            // エラー処理を行う
+            console.error("Post error:", error);
+
+            setErrorMessage("投稿に失敗しました。");
         }
     };
 
     return (
         <div className="bg-gray-900 text-white p-5">
             <div>
-                <img src="/icons/logo.png" alt="ロゴ" className="w-20" />
+                <img src="/icons/logo.png" alt="Logo" className="w-20" />
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/home.png" className="w-6 mr-2" />
-                <a>
-                    ホーム
-                </a>
+                <a>Home</a>
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/logout.png" className="w-6 mr-2" />
-                <a>
-                    ログアウト
-                </a>
+                <a>Logout</a>
             </div>
-            <form onSubmit={handlePostSubmit} className="mt-4">
-                <p>シェア</p>
-                <textarea 
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                <p>Share</p>
+                <textarea
                     className="w-full h-36 my-2 p-2 rounded bg-gray-800 text-white outline-none"
-                    value={postContent}
-                    onChange={(e) => setPostContent(e.target.value)}
-                    placeholder="投稿内容を入力してください"
+                    {...register("postContent", { required: true, maxLength: 120 })}
                 ></textarea>
+                {errors.postContent && errors.postContent.type === "required" && (
+                    <p className="text-red-500">投稿内容は必須です。</p>
+                )}
+                {errors.postContent && errors.postContent.type === "maxLength" && (
+                    <p className="text-red-500">投稿内容は120文字以内で入力してください。</p>
+                )}
+                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                 <div className="text-right">
                     <PrimaryButton type="submit">
                         シェアする
                     </PrimaryButton>
                 </div>
-               
             </form>
         </div>
     );
