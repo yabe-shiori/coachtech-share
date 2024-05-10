@@ -24,7 +24,8 @@ export const Register = () => {
 
     const onSubmit = async (data: FormData) => {
         try {
-            await createUserWithEmailAndPassword(auth, data.email, data.password);
+            const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+            const user = userCredential.user; // ユーザーオブジェクトを定義
 
             const response = await fetch("/api/register", {
                 method: "POST",
@@ -37,7 +38,7 @@ export const Register = () => {
             if (response.ok) {
                 console.log("ユーザー登録が成功しました");
 
-                navigate("/", { state: { user: { name: data.name } } });
+                navigate("/", { state: { user: { uid: user.uid, name: data.name, email: data.email } } });
             } else {
                 console.error("ユーザー登録が失敗しました");
                 // 失敗した場合の処理

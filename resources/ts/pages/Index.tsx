@@ -8,7 +8,6 @@ export const Index = () => {
     const location = useLocation();
     const user = location.state?.user;
 
-
     // ユーザーがログインしていない場合は/loginにリダイレクトする
     // if (!user) {
     //     return <Navigate to="/login" />;
@@ -18,7 +17,7 @@ export const Index = () => {
         <div className="flex bg-gray-900 text-white">
             <p>{user.name}</p>
             <div className="w-1/5 h-screen">
-                <SideNav />
+                <SideNav user={user} />
             </div>
             <div className="w-4/5">
                 <p className="text-2xl font-bold p-2">ホーム</p>

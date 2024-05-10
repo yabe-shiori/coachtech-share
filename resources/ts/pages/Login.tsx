@@ -3,7 +3,7 @@ import { Guest } from "../layouts/GuestLayout";
 import TextInput from "../components/TextInput";
 import PrimaryButton from "../components/PrimaryButton";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; 
+import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
@@ -17,7 +17,7 @@ export const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             console.log("ログインに成功しました", user);
-            navigate("/", { state: { user: { name: user.email } } }); 
+            navigate("/", { state: { user } }); // ユーザー情報を直接送信
         } catch (error) {
             console.error("ログインエラー:", error.message);
             // ログインエラーの場合の処理

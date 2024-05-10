@@ -17,7 +17,7 @@ class PostController extends Controller
         return response()->json(['posts' => $posts], 200);
     }
 
-    //投稿作成
+  //投稿作成
     public function store(Request $request)
     {
         $postData = $request->only('body', 'user_id');
@@ -26,7 +26,6 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Post created successfully', 'post' => $post], 201);
     }
-
     //投稿詳細表示
     public function show($id)
     {
