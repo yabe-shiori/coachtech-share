@@ -26,6 +26,7 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Post created successfully', 'post' => $post], 201);
     }
+
     //投稿詳細表示
     public function show($id)
     {
@@ -40,9 +41,13 @@ class PostController extends Controller
     //投稿削除
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        try {
+            $post = Post::findOrFail($id);
+            $post->delete();
 
-        return response()->json(['message' => 'Post deleted successfully'], 200);
+            return response()->json(['message' => 'Post deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete post'], 500);
+        }
     }
 }

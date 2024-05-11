@@ -7,6 +7,7 @@ import axios from "axios";
 
 export const Index = () => {
     const [posts, setPosts] = useState([]);
+    const [postCreated, setPostCreated] = useState(false); // 追加: 投稿が作成されたら更新するフラグ
     const location = useLocation();
     const user = location.state?.user;
 
@@ -25,7 +26,17 @@ export const Index = () => {
             }
         };
         fetchPosts();
-    }, []);
+    }, [postCreated]); // 追加: 投稿が作成または削除されたら再取得する
+
+    // 追加: 投稿の削除機能
+    const handleDeletePost = async (postId) => {
+        try {
+            await axios.delete(`/api/posts/${postId}`);
+            setPostCreated(!postCreated); // 投稿が削除されたので再取得する
+        } catch (error) {
+            console.error("Failed to delete post:", error);
+        }
+    };
 
     return (
         <div className="flex bg-gray-900 text-white">
@@ -41,6 +52,7 @@ export const Index = () => {
                             key={post.id}
                             post={post}
                             user={user}
+                            onDeletePost={handleDeletePost} // 追加: 削除機能を渡す
                         />
                     ))}
                 </div>
