@@ -5,9 +5,13 @@ import { Message } from "../components/Message";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
+interface Post {
+    id: number;
+}
+
 export const Index = () => {
-    const [posts, setPosts] = useState([]);
-    const [postCreated, setPostCreated] = useState(false); // 追加: 投稿が作成されたら更新するフラグ
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [postCreated, setPostCreated] = useState<boolean>(false);
     const location = useLocation();
     const user = location.state?.user;
 
@@ -20,19 +24,20 @@ export const Index = () => {
         const fetchPosts = async () => {
             try {
                 const response = await axios.get("/api/posts");
-                setPosts(response.data.posts);
+                const fetchedPosts: Post[] = response.data.posts || [];
+                setPosts(fetchedPosts);
             } catch (error) {
                 console.error("Failed to fetch posts:", error);
             }
         };
         fetchPosts();
-    }, [postCreated]); // 追加: 投稿が作成または削除されたら再取得する
+    }, [postCreated]);
 
-    // 追加: 投稿の削除機能
-    const handleDeletePost = async (postId) => {
+    // 投稿削除
+    const handleDeletePost = async (postId: number) => {
         try {
             await axios.delete(`/api/posts/${postId}`);
-            setPostCreated(!postCreated); // 投稿が削除されたので再取得する
+            setPostCreated(prev => !prev);
         } catch (error) {
             console.error("Failed to delete post:", error);
         }
@@ -52,7 +57,7 @@ export const Index = () => {
                             key={post.id}
                             post={post}
                             user={user}
-                            onDeletePost={handleDeletePost} // 追加: 削除機能を渡す
+                            onDeletePost={handleDeletePost}
                         />
                     ))}
                 </div>
