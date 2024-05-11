@@ -5,13 +5,9 @@ import { Message } from "../components/Message";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-interface Post {
-    id: number;
-}
-
 export const Index = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [postCreated, setPostCreated] = useState<boolean>(false);
+    const [posts, setPosts] = useState([]);
+    const [postCreated, setPostCreated] = useState(false);
     const location = useLocation();
     const user = location.state?.user;
 
@@ -24,8 +20,7 @@ export const Index = () => {
         const fetchPosts = async () => {
             try {
                 const response = await axios.get("/api/posts");
-                const fetchedPosts: Post[] = response.data.posts || [];
-                setPosts(fetchedPosts);
+                setPosts(response.data.posts);
             } catch (error) {
                 console.error("Failed to fetch posts:", error);
             }
@@ -33,13 +28,26 @@ export const Index = () => {
         fetchPosts();
     }, [postCreated]);
 
-    // 投稿削除
+    //投稿削除
     const handleDeletePost = async (postId: number) => {
         try {
             await axios.delete(`/api/posts/${postId}`);
-            setPostCreated(prev => !prev);
+            setPostCreated(!postCreated);
         } catch (error) {
             console.error("Failed to delete post:", error);
+        }
+    };
+
+    // いいねの処理
+    const handleLikePost = async (postId: number) => {
+        try {
+            await axios.post(`/api/likes`, {
+                user_id: user.uid,
+                post_id: postId,
+            });
+            setPostCreated(!postCreated);
+        } catch (error) {
+            console.error("Failed to like post:", error);
         }
     };
 
@@ -58,6 +66,7 @@ export const Index = () => {
                             post={post}
                             user={user}
                             onDeletePost={handleDeletePost}
+                            onLikePost={handleLikePost}
                         />
                     ))}
                 </div>

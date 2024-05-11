@@ -13,10 +13,16 @@ interface MessageProps {
     post: Post;
     user: User;
     onDeletePost: (postId: number) => void;
+    onLikePost: (postId: number) => void; // ここにいいねの処理を受け取る関数の型を追加
 }
 
-export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost }) => {
+export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLikePost }) => {
     const { id, body } = post;
+
+    const handleLikeClick = () => {
+        // いいねの処理を呼び出す
+        onLikePost(id);
+    };
 
     const handleDeleteClick = () => {
         onDeletePost(id);
@@ -31,6 +37,7 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost }) =>
                 <img
                     src="/icons/heart.png"
                     className="w-8 h-8 cursor-pointer mx-2.5"
+                    onClick={handleLikeClick} // いいねのクリックイベントハンドラを追加
                 />
                 <p className="text-white mr-2"> いいねの数</p>
                 <img
