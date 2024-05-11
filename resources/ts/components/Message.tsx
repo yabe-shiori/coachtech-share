@@ -16,10 +16,10 @@ interface MessageProps {
     user: User;
     likes: { user_id: number }[];
     onDeletePost: (postId: number) => void;
-    onLikePost: (postId: number) => void;
+    onLike: (postId: number) => void;
 }
 
-export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLikePost }) => {
+export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLike }) => {
     const { id, body, user_id } = post;
     const [userName, setUserName] = useState('Unknown User');
 
@@ -35,8 +35,8 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
         fetchUserName();
     }, [user_id]);
 
-    const handleLikeClick = () => {
-        onLikePost(id);
+    const handleLike = () => {
+        onLike(id);
     };
 
     const handleDeleteClick = () => {
@@ -52,7 +52,7 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
                 <img
                     src="/icons/heart.png"
                     className="w-8 h-8 cursor-pointer mx-2.5"
-                    onClick={handleLikeClick}
+                    onClick={handleLike}
                 />
                 <p className="text-white mr-2"> {post.likes.length}</p>
                 <img

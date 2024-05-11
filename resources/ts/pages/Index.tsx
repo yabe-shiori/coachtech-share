@@ -38,18 +38,48 @@ export const Index = () => {
         }
     };
 
-    // いいねの処理
-    const handleLikePost = async (postId: number) => {
+    const handleLikePost = async (postId) => {
         try {
-            await axios.post(`/api/likes`, {
-                user_id: user.uid,
-                post_id: postId,
-            });
+            const postIndex = posts.findIndex((post) => post.id === postId);
+            const post = posts[postIndex];
+
+            const existingLikeIndex = post.likes.findIndex(
+                (like) => like.user_id === user.uid
+            );
+
+            if (existingLikeIndex !== -1) {
+                await axios.delete(
+                    `/api/likes/${post.likes[existingLikeIndex].id}`
+                );
+            } else {
+                await axios.post("/api/likes", {
+                    user_id: user.uid,
+                    post_id: postId,
+                });
+            }
+
             setPostCreated(!postCreated);
         } catch (error) {
             console.error("Failed to like post:", error);
         }
     };
+
+    const handleUnlikeClick = async (postId: number) => {
+        try {
+            // いいねが存在するかを確認
+            const existingLikeIndex = post.likes.findIndex(
+                (like) => like.user_id === user.uid
+            );
+            if (existingLikeIndex !== -1) {
+                // いいねが存在する場合は削除する
+                await axios.delete(`/api/likes/${post.likes[existingLikeIndex].id}`);
+                setPostCreated(!postCreated);
+            }
+        } catch (error) {
+            console.error("Failed to unlike post:", error);
+        }
+    };
+    
 
     return (
         <div className="flex bg-gray-900 text-white">
@@ -65,8 +95,9 @@ export const Index = () => {
                             key={post.id}
                             post={post}
                             user={user}
+                            likes={post.likes}
                             onDeletePost={handleDeletePost}
-                            onLikePost={handleLikePost}
+                            onLike={handleLikePost}
                         />
                     ))}
                 </div>
