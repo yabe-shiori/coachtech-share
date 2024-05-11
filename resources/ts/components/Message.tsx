@@ -1,10 +1,25 @@
 import React from "react";
 
-export const Message = ({ post, user, onDeletePost }) => {
-    const { id, body } = post; // 追加: postからidを取得
+interface Post {
+    id: number;
+    body: string;
+}
+
+interface User {
+    name: string;
+}
+
+interface MessageProps {
+    post: Post;
+    user: User;
+    onDeletePost: (postId: number) => void;
+}
+
+export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost }) => {
+    const { id, body } = post;
 
     const handleDeleteClick = () => {
-        onDeletePost(id); // 削除ボタンがクリックされたらonDeletePostを呼び出す
+        onDeletePost(id);
     };
 
     return (
@@ -21,7 +36,7 @@ export const Message = ({ post, user, onDeletePost }) => {
                 <img
                     src="/icons/cross.png"
                     className="w-8 h-8 cursor-pointer mx-2.5"
-                    onClick={handleDeleteClick} // 追加: 削除ボタンがクリックされたらhandleDeleteClickを呼び出す
+                    onClick={handleDeleteClick}
                 />
                 <a href="">
                     <img
