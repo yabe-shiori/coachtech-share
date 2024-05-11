@@ -14,6 +14,7 @@ interface User {
 interface MessageProps {
     post: Post;
     user: User;
+    likes: { user_id: number }[];
     onDeletePost: (postId: number) => void;
     onLikePost: (postId: number) => void;
 }
@@ -53,7 +54,7 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
                     className="w-8 h-8 cursor-pointer mx-2.5"
                     onClick={handleLikeClick}
                 />
-                <p className="text-white mr-2"> いいねの数</p>
+                <p className="text-white mr-2"> {post.likes.length}</p>
                 <img
                     src="/icons/cross.png"
                     className="w-8 h-8 cursor-pointer mx-2.5"
