@@ -9,15 +9,15 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-
     //投稿一覧表示
     public function index()
     {
-        $posts = Post::with(['user', 'likes'])->get();
+        $posts = Post::with(['user'])->get();
+
         return response()->json(['posts' => $posts], 200);
     }
 
-  //投稿作成
+    //投稿作成
     public function store(Request $request)
     {
         $postData = $request->only('body', 'user_id');

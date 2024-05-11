@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Guest } from "../layouts/GuestLayout";
 import TextInput from "../components/TextInput";
 import PrimaryButton from "../components/PrimaryButton";
@@ -22,7 +22,18 @@ export const Login = () => {
             const user = userCredential.user;
             console.log("ログインに成功しました", user);
 
-            navigate("/", { state: { user: { uid: user.uid, name: user.displayName } } });
+            // ユーザーの表示名を取得する
+            const currentUser = auth.currentUser;
+            const displayName = currentUser ? currentUser.displayName : null;
+
+            const userInfo = {
+                uid: user.uid,
+                name: displayName, // ユーザーの表示名を設定
+                email: user.email,
+            };
+
+            // ユーザー情報をstateとして持って遷移
+            navigate("/", { state: { user: userInfo } });
         } catch (error: any) {
             console.error("ログインエラー:", error.message);
             // ログインエラーの場合の処理

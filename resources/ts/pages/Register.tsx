@@ -6,6 +6,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 interface FormData {
     name: string;
@@ -28,6 +29,14 @@ export const Register = () => {
             const user = userCredential.user;
 
             const uid = user.uid;
+
+            // Firestoreにユーザー情報を保存
+            const db = getFirestore();
+            await addDoc(collection(db, "users"), {
+                email: user.email,
+                uid: user.uid,
+                name: data.name,
+            });
 
             const response = await fetch("/api/register", {
                 method: "POST",
