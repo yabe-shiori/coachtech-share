@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 interface Post {
     id: number;
@@ -13,14 +15,26 @@ interface MessageProps {
     post: Post;
     user: User;
     onDeletePost: (postId: number) => void;
-    onLikePost: (postId: number) => void; // ここにいいねの処理を受け取る関数の型を追加
+    onLikePost: (postId: number) => void;
 }
 
 export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLikePost }) => {
-    const { id, body } = post;
+    const { id, body, user_id } = post;
+    const [userName, setUserName] = useState('Unknown User');
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            try {
+                const response = await axios.get(`/api/users/${user_id}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Failed to fetch user name:', error);
+            }
+        };
+        fetchUserName();
+    }, [user_id]);
 
     const handleLikeClick = () => {
-        // いいねの処理を呼び出す
         onLikePost(id);
     };
 
@@ -32,12 +46,12 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
         <div className="bg-gray-900 p-5 border border-white cursor-pointer break-words mx-4">
             <div className="flex">
                 <p className="text-white font-bold text-lg mr-2">
-                    {user.name}
+                    {userName}
                 </p>
                 <img
                     src="/icons/heart.png"
                     className="w-8 h-8 cursor-pointer mx-2.5"
-                    onClick={handleLikeClick} // いいねのクリックイベントハンドラを追加
+                    onClick={handleLikeClick}
                 />
                 <p className="text-white mr-2"> いいねの数</p>
                 <img

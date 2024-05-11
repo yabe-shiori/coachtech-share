@@ -7,6 +7,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+     public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user);
+    }
+    
    public function register(Request $request)
    {
        $userData = $request->only(['name', 'email', 'password', 'uid']);
