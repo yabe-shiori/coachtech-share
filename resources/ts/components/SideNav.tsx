@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import PrimaryButton from "./PrimaryButton";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 interface Props {
     user: { uid: string };
@@ -64,7 +64,7 @@ export const SideNav: React.FC<Props> = ({ user }) => {
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/home.png" className="w-6 mr-2" />
-                <a>ホーム</a>
+                <Link to={`/`} state={{user: user}} className="cursor-pointer">ホーム</Link>
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/logout.png" className="w-6 mr-2 cursor-pointer" onClick={handleLogout} />

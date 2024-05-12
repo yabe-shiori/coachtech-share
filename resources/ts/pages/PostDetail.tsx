@@ -61,30 +61,31 @@ export const PostDetail = () => {
         }
     };
 
-    if (!post) {
-        return <div>Loading...</div>;
-    }
-
-    console.log(user)
     return (
         <div className="flex bg-gray-900 text-white">
             <div className="w-1/4 h-screen">
                 <SideNav user={user} />
             </div>
             <div className="w-3/4 h-screen">
-                <p className="text-2xl font-bold p-2">コメント</p>
-                <div className="mb-6">
-                    <Message
-                        key={post.id}
-                        post={post}
-                        user={user}
-                        likes={post.likes}
-                        onDeletePost={handleDeletePost}
-                        onLike={handleLikePost}
-                    />
-                </div>
-                <p className="text-center text-xl mb-2">コメント</p>
-                <CommentForm />
+                {post ? (
+                    <>
+                        <p className="text-2xl font-bold p-2">コメント</p>
+                        <div className="mb-6">
+                            <Message
+                                key={post.id}
+                                post={post}
+                                user={user}
+                                likes={post.likes}
+                                onDeletePost={handleDeletePost}
+                                onLike={handleLikePost}
+                            />
+                        </div>
+                        <p className="text-center text-xl mb-2">コメント</p>
+                        <CommentForm />
+                    </>
+                ) : (
+                    <p className="text-center text-xl mt-6">投稿がありません</p>
+                )}
             </div>
         </div>
     );
