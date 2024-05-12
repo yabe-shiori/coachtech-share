@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface Post {
     id: number;
@@ -22,6 +23,8 @@ interface MessageProps {
 export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLike }) => {
     const { id, body, user_id } = post;
     const [userName, setUserName] = useState('Unknown User');
+
+    console.log(user)
 
     useEffect(() => {
         const fetchUserName = async () => {
@@ -60,13 +63,17 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
                     className="w-8 h-8 cursor-pointer mx-2.5"
                     onClick={handleDeleteClick}
                 />
-                <a href="">
+                <Link
+                    to={`/posts/${id}`}
+                    state={{ user: user }}
+                    className="ml-12"
+                >
                     <img
                         src="/icons/detail.png"
                         alt="Detail"
-                        className="w-8 h-8 cursor-pointer ml-12"
+                        className="w-8 h-8 cursor-pointer"
                     />
-                </a>
+                </Link>
             </div>
             <p className="text-white">{body}</p>
         </div>

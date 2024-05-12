@@ -27,14 +27,20 @@ class PostController extends Controller
         return response()->json(['message' => 'Post created successfully', 'post' => $post], 201);
     }
 
-    //投稿詳細表示
+    //投稿の詳細表示
     public function show($id)
     {
-        $post = Post::with(['user', 'likes', 'comments', 'comments.user'])->findOrFail($id);
+        $post = Post::with(['user', 'likes', 'comments', 'comments.user'])->find($id);
 
-        return Inertia::render('PostDetail', [
-            'post' => $post
-        ]);
+        if (!$post) {
+            return response()->json([
+                'error' => '投稿が見つかりませんでした。'
+            ], 404);
+        } else {
+            return response()->json([
+                'post' => $post
+            ]);
+        }
     }
 
 

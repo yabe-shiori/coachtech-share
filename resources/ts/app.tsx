@@ -10,6 +10,7 @@ import { SideNav } from "./components/SideNav";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Index } from "./pages/Index";
+import { PostDetail } from "./pages/PostDetail";
 
 
 const App = () => {
@@ -19,10 +20,9 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Index />} />
-                    <Route path="/mypage" element={<AuthHeader />} />
-                    <Route path="/posts" element={<Message />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/posts/:id" element={<PostDetail />} />
                 </Routes>
                 {/* <ul>
                     <li>

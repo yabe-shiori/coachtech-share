@@ -31,59 +31,41 @@ export const Index = () => {
     //投稿削除
     const handleDeletePost = async (postId: number) => {
         try {
-            await axios.delete(`/api/posts/${postId}`);
+            await axios.delete(`/api/posts/${postId}/delete`);
             setPostCreated(!postCreated);
         } catch (error) {
             console.error("Failed to delete post:", error);
         }
     };
 
-    const handleLikePost = async (postId) => {
-        try {
-            const postIndex = posts.findIndex((post) => post.id === postId);
-            const post = posts[postIndex];
+    const handleLikePost = async (postId: number) => {
+    try {
+        const postIndex = posts.findIndex((post) => post.id === postId);
+        const post = posts[postIndex];
 
-            const existingLikeIndex = post.likes.findIndex(
-                (like) => like.user_id === user.uid
+        const existingLikeIndex = post.likes.findIndex(
+            (like) => like.user_id === user.uid
+        );
+
+        if (existingLikeIndex !== -1) {
+            await axios.delete(
+                `/api/likes/${post.likes[existingLikeIndex].id}`
             );
-
-            if (existingLikeIndex !== -1) {
-                await axios.delete(
-                    `/api/likes/${post.likes[existingLikeIndex].id}`
-                );
-            } else {
-                await axios.post("/api/likes", {
-                    user_id: user.uid,
-                    post_id: postId,
-                });
-            }
-
-            setPostCreated(!postCreated);
-        } catch (error) {
-            console.error("Failed to like post:", error);
+        } else {
+            await axios.post("/api/likes", {
+                user_id: user.uid,
+                post_id: postId,
+            });
         }
-    };
 
-    const handleUnlikeClick = async (postId: number) => {
-        try {
-            // いいねが存在するかを確認
-            const existingLikeIndex = post.likes.findIndex(
-                (like) => like.user_id === user.uid
-            );
-            if (existingLikeIndex !== -1) {
-                // いいねが存在する場合は削除する
-                await axios.delete(`/api/likes/${post.likes[existingLikeIndex].id}`);
-                setPostCreated(!postCreated);
-            }
-        } catch (error) {
-            console.error("Failed to unlike post:", error);
-        }
-    };
-    
+        setPostCreated(!postCreated);
+    } catch (error) {
+        console.error("Failed to like post:", error);
+    }
+};
 
     return (
         <div className="flex bg-gray-900 text-white">
-            <p>{user.name}</p>
             <div className="w-1/4 h-screen">
                 <SideNav user={user} />
             </div>
