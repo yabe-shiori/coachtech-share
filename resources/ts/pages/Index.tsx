@@ -28,11 +28,13 @@ export const Index = () => {
         fetchPosts();
     }, [postCreated]);
 
-    //投稿削除
-    const handleDeletePost = async (postId: number) => {
+    // 投稿削除
+    const handleDeletePost = async (postId) => {
         try {
             await axios.delete(`/api/posts/${postId}/delete`);
             setPostCreated(!postCreated);
+            // 削除後に/に遷移し、ユーザー情報も一緒に渡す
+            navigate("/", { state: { user: user } });
         } catch (error) {
             console.error("Failed to delete post:", error);
         }

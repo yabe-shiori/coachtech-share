@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { SideNav } from "../components/SideNav";
 import { Message } from "../components/Message";
 import { CommentForm } from "../components/CommentForm";
@@ -11,6 +11,7 @@ export const PostDetail = () => {
     const [postCreated, setPostCreated] = useState(false);
     const [comments, setComments] = useState([]);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const user = location.state ? location.state.user : null;
 
@@ -33,6 +34,7 @@ export const PostDetail = () => {
         try {
             await axios.delete(`/api/posts/${postId}/delete`);
             setPostCreated(!postCreated);
+            navigate("/", { state: { user: user } });
         } catch (error) {
             console.error("Failed to delete post:", error);
         }
