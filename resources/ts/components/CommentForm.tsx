@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 export const CommentForm = ({ addComment, user, comments }) => {
-    const [comment, setComment] = useState("");
+    const { register, handleSubmit: handleSubmitForm, reset, formState: { errors } } = useForm();
+
     const [userNames, setUserNames] = useState({});
 
     useEffect(() => {
@@ -19,11 +21,10 @@ export const CommentForm = ({ addComment, user, comments }) => {
         fetchUserNames();
     }, [comments]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (data) => {
         try {
-            await addComment({ comment: comment, user: user });
-            setComment("");
+            await addComment({ comment: data.comment, user: user });
+            reset();
         } catch (error) {
             console.error("Failed to submit comment:", error);
         }
@@ -43,12 +44,18 @@ export const CommentForm = ({ addComment, user, comments }) => {
             </div>
 
             <div className="m-4">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitForm(handleSubmit)}>
                     <textarea
                         className="bg-gray-900 text-white w-11/12 rounded-xl border border-white px-2"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        {...register("comment", {
+                            required: "コメントは必須です",
+                            maxLength: {
+                                value: 120,
+                                message: "コメントは120文字以下で入力してください"
+                            }
+                        })}
                     />
+                    {errors.comment && <p className="text-red-500">{errors.comment.message}</p>}
                     <div className="text-right">
                         <PrimaryButton type="submit">コメント</PrimaryButton>
                     </div>
