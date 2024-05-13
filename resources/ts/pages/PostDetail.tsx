@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SideNav } from "../components/SideNav";
 import { Message } from "../components/Message";
 import { CommentForm } from "../components/CommentForm";
-import { auth } from "../firebase";
 
 export const PostDetail = () => {
     const [post, setPost] = useState(null);
@@ -29,8 +28,7 @@ export const PostDetail = () => {
         fetchPost();
     }, [location, postCreated]);
 
-    // 投稿削除
-    const handleDeletePost = async (postId) => {
+    const handleDeletePost = async (postId: number) => {
         try {
             await axios.delete(`/api/posts/${postId}/delete`);
             setPostCreated(!postCreated);
@@ -40,8 +38,7 @@ export const PostDetail = () => {
         }
     };
 
-    // 投稿に対するいいね処理
-    const handleLikePost = async (postId) => {
+    const handleLikePost = async (postId: number) => {
         try {
             const existingLikeIndex = post.likes.findIndex(
                 (like) => like.user_id === user.uid
@@ -64,7 +61,6 @@ export const PostDetail = () => {
         }
     };
 
-    // コメント追加
     const addComment = async (commentData) => {
         try {
             const commentWithUserId = { ...commentData, user_id: user.uid, post_id: post.id };
@@ -75,10 +71,14 @@ export const PostDetail = () => {
         }
     };
 
+    const handleCreatePost = () => {
+        setPostCreated(!postCreated);
+    };
+
     return (
         <div className="flex bg-gray-900 text-white">
             <div className="w-1/4 h-screen">
-                <SideNav user={user} />
+                <SideNav user={user} handleCreatePost={handleCreatePost} />
             </div>
             <div className="w-3/4 h-screen">
                 {post ? (

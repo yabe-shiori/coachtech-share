@@ -9,7 +9,7 @@ export interface Post {
     id: number;
     body: string;
     user_id: string;
-    likes: { user_id: number }[];
+    likes: { id: number; user_id: string }[];
 }
 
 export const Index = () => {
@@ -46,30 +46,26 @@ export const Index = () => {
     };
 
     const handleLikePost = async (postId: number) => {
-    try {
-        const postIndex = posts.findIndex((post: any) => post.id === postId);
-        const post = posts[postIndex];
+        try {
+            const postIndex = posts.findIndex((post) => post.id === postId);
+            const post = posts[postIndex];
 
-        const existingLikeIndex = post.likes.findIndex(
-            (like: any) => like.user_id === user.uid
-        );
+            const existingLike = post.likes.find((like) => like.user_id === user.uid);
 
-        if (existingLikeIndex !== -1) {
-            await axios.delete(
-                `/api/likes/${post.likes[existingLikeIndex].user_id}`
-            );
-        } else {
-            await axios.post("/api/likes", {
-                user_id: user.uid,
-                post_id: postId,
-            });
+            if (existingLike) {
+                await axios.delete(`/api/likes/${existingLike.id}`);
+            } else {
+                await axios.post("/api/likes", {
+                    user_id: user.uid,
+                    post_id: postId,
+                });
+            }
+
+            setPostCreated(!postCreated);
+        } catch (error) {
+            console.error("Failed to like post:", error);
         }
-
-        setPostCreated(!postCreated);
-    } catch (error) {
-        console.error("Failed to like post:", error);
-    }
-};
+    };
 
     return (
         <div className="flex bg-gray-900 text-white">
