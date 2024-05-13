@@ -2,11 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-interface Post {
-    id: number;
-    body: string;
-}
+import { Post } from "../pages/Index";
 
 interface User {
     name: string;
@@ -18,6 +14,7 @@ interface MessageProps {
     likes: { user_id: number }[];
     onDeletePost: (postId: number) => void;
     onLike: (postId: number) => void;
+    showDetailButton?: boolean;
 }
 
 export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLike, showDetailButton }) => {

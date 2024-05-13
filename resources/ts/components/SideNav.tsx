@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 interface Props {
     user: { uid: string };
-    handleCreatePost: () => void; // Define handleCreatePost prop
+    handleCreatePost: () => void;
 }
 
 type FormData = {
