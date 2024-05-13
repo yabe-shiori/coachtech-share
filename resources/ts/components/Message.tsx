@@ -49,18 +49,18 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
     return (
         <div className="bg-gray-900 p-5 border border-white cursor-pointer break-words w-11/12">
             <div className="flex">
-                <p className="text-white font-bold text-lg mr-2">
+                <p className="text-white font-bold text-lg mr-4">
                     {userName}
                 </p>
                 <img
                     src="/icons/heart.png"
-                    className="w-8 h-8 cursor-pointer mx-2.5"
+                    className="w-8 h-8 cursor-pointer"
                     onClick={handleLike}
                 />
-                <p className="text-white mr-2"> {post.likes.length}</p>
+                <p className="text-white mx-3"> {post.likes.length}</p>
                 <img
                     src="/icons/cross.png"
-                    className="w-8 h-8 cursor-pointer mx-2.5"
+                    className="w-8 h-8 cursor-pointer mr-12"
                     onClick={handleDeleteClick}
                 />
                 <Link
