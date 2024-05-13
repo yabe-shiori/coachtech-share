@@ -9,6 +9,7 @@ import { auth } from "../firebase";
 export const PostDetail = () => {
     const [post, setPost] = useState(null);
     const [postCreated, setPostCreated] = useState(false);
+    const [comments, setComments] = useState([]);
     const location = useLocation();
 
     // ユーザー情報をロケーションから取得
@@ -20,6 +21,7 @@ export const PostDetail = () => {
                 const postId = location.pathname.split("/")[2];
                 const response = await axios.get(`/api/posts/${postId}`);
                 setPost(response.data.post);
+                setComments(response.data.post.comments);
             } catch (error) {
                 console.error("Failed to fetch post:", error);
             }
@@ -61,6 +63,17 @@ export const PostDetail = () => {
         }
     };
 
+    // コメント追加
+    const addComment = async (commentData) => {
+        try {
+            const commentWithUserId = { ...commentData, user_id: user.uid, post_id: post.id };
+            const response = await axios.post("/api/comments", commentWithUserId);
+            setComments([...comments, response.data.comment]);
+        } catch (error) {
+            console.error("Failed to add comment:", error);
+        }
+    };
+
     return (
         <div className="flex bg-gray-900 text-white">
             <div className="w-1/4 h-screen">
@@ -81,7 +94,7 @@ export const PostDetail = () => {
                             />
                         </div>
                         <p className="text-center text-xl mb-2">コメント</p>
-                        <CommentForm />
+                        <CommentForm addComment={addComment} user={user} comments={comments} />
                     </>
                 ) : (
                     <p className="text-center text-xl mt-6">投稿がありません</p>
