@@ -80,6 +80,7 @@ export const Index = () => {
                             likes={post.likes}
                             onDeletePost={handleDeletePost}
                             onLike={handleLikePost}
+                            showDetailButton={true}
                         />
                     ))}
                 </div>

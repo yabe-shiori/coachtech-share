@@ -12,6 +12,13 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return response()->json($user);
     }
+
+    public function getUserNames(Request $request)
+    {
+        $userIds = $request->input('userIds');
+        $users = User::whereIn('id', $userIds)->pluck('name', 'id');
+        return response()->json(['userNames' => $users]);
+    }
     
    public function register(Request $request)
    {

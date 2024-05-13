@@ -12,7 +12,6 @@ export const PostDetail = () => {
     const [comments, setComments] = useState([]);
     const location = useLocation();
 
-    // ユーザー情報をロケーションから取得
     const user = location.state ? location.state.user : null;
 
     useEffect(() => {
@@ -94,7 +93,7 @@ export const PostDetail = () => {
                             />
                         </div>
                         <p className="text-center text-xl mb-2">コメント</p>
-                        <CommentForm addComment={addComment} user={user} comments={comments} />
+                        <CommentForm addComment={addComment} user={user} comments={comments} post={post} />
                     </>
                 ) : (
                     <p className="text-center text-xl mt-6">投稿がありません</p>

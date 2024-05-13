@@ -20,7 +20,7 @@ interface MessageProps {
     onLike: (postId: number) => void;
 }
 
-export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLike }) => {
+export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLike, showDetailButton }) => {
     const { id, body, user_id } = post;
     const [userName, setUserName] = useState('Unknown User');
 
@@ -66,7 +66,7 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
                 <Link
                     to={`/posts/${id}`}
                     state={{ user: user }}
-                    className="ml-12"
+                    className={showDetailButton ? "" : "hidden"}
                 >
                     <img
                         src="/icons/detail.png"
