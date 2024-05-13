@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { SideNav } from "../components/SideNav";
 import { Message } from "../components/Message";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const Index = () => {
     const [posts, setPosts] = useState([]);
-    const [postCreated, setPostCreated] = useState(false);
+    const [postCreated, setPostCreated] = useState(false); // Manage post creation state
     const location = useLocation();
     const user = location.state?.user;
+    const navigate = useNavigate();
 
-    // ユーザーがログインしていない場合は/loginにリダイレクトする
+    // Redirect to login if user is not logged in
     if (!user) {
         return <Navigate to="/login" />;
     }
@@ -26,14 +27,14 @@ export const Index = () => {
             }
         };
         fetchPosts();
-    }, [postCreated]);
+    }, [postCreated]); // Fetch posts when postCreated state changes
 
-    // 投稿削除
+    // Delete post function
     const handleDeletePost = async (postId) => {
         try {
             await axios.delete(`/api/posts/${postId}/delete`);
-            setPostCreated(!postCreated);
-            // 削除後に/に遷移し、ユーザー情報も一緒に渡す
+            setPostCreated(!postCreated); // Trigger post creation state change
+            // Navigate to home after deleting post
             navigate("/", { state: { user: user } });
         } catch (error) {
             console.error("Failed to delete post:", error);
@@ -69,11 +70,13 @@ export const Index = () => {
     return (
         <div className="flex bg-gray-900 text-white">
             <div className="w-1/4 h-screen">
-                <SideNav user={user} />
+                {/* Pass handleCreatePost function to SideNav */}
+                <SideNav user={user} handleCreatePost={() => setPostCreated(!postCreated)} />
             </div>
             <div className="w-3/4">
                 <p className="text-2xl font-bold p-2">ホーム</p>
                 <div>
+                    {/* Render Message component for each post */}
                     {posts.map((post) => (
                         <Message
                             key={post.id}

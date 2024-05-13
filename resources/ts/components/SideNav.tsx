@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import PrimaryButton from "./PrimaryButton";
 import { getAuth, signOut } from "firebase/auth";
@@ -6,14 +6,15 @@ import { useNavigate, Link } from "react-router-dom";
 
 interface Props {
     user: { uid: string };
+    handleCreatePost: () => void; // Define handleCreatePost prop
 }
 
 type FormData = {
     postContent: string;
 };
 
-export const SideNav: React.FC<Props> = ({ user }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+export const SideNav: React.FC<Props> = ({ user, handleCreatePost }) => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
     const [errorMessage, setErrorMessage] = useState<string>("");
     const navigate = useNavigate();
 
@@ -38,10 +39,12 @@ export const SideNav: React.FC<Props> = ({ user }) => {
                 throw new Error("Failed to post");
             }
 
+            reset();
+            handleCreatePost();
+
             setErrorMessage("");
         } catch (error) {
             console.error("Post error:", error);
-
             setErrorMessage("投稿に失敗しました。");
         }
     };
@@ -64,7 +67,7 @@ export const SideNav: React.FC<Props> = ({ user }) => {
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/home.png" className="w-6 mr-2" />
-                <Link to={`/`} state={{user: user}} className="cursor-pointer">ホーム</Link>
+                <Link to={`/`} state={{ user: user }} className="cursor-pointer">ホーム</Link>
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/logout.png" className="w-6 mr-2 cursor-pointer" onClick={handleLogout} />
