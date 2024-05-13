@@ -15,7 +15,7 @@ export const CommentForm = () => {
         {/* コメント入力フォーム */}
         <div className="m-4">
             <form >
-                <textarea className="bg-gray-900 text-white w-11/12 rounded-lg border-2 border-white"
+                <textarea className="bg-gray-900 text-white w-11/12 rounded-xl border border-white"
                 />
                 <div className="text-right">
                     <PrimaryButton type="submit">コメント</PrimaryButton>
