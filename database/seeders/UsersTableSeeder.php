@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
+            'id' => 'firebase_uid_1',
             'name' => 'テスト太郎',
             'email' => 'testtaro@example.com',
             'password' => Hash::make('password'),
@@ -22,6 +23,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => 'firebase_uid_2',
             'name' => 'テスト次郎',
             'email' => 'testjiro@example.com',
             'password' => Hash::make('password'),
@@ -30,6 +32,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => 'firebase_uid_3',
             'name' => 'テスト三郎',
             'email' => 'testsaburo@example.com',
             'password' => Hash::make('password'),

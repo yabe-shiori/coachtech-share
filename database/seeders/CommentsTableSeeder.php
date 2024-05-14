@@ -13,42 +13,42 @@ class CommentsTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('comments')->insert([
-            'user_id' => 2,
+            'user_id' => 'firebase_uid_2',
             'post_id' => 1,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('comments')->insert([
-            'user_id' => 3,
+            'user_id' => 'firebase_uid_3',
             'post_id' => 1,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('comments')->insert([
-            'user_id' => 1,
+            'user_id' => 'firebase_uid_1',
             'post_id' => 2,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('comments')->insert([
-            'user_id' => 3,
+            'user_id' => 'firebase_uid_3',
             'post_id' => 2,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('comments')->insert([
-            'user_id' => 1,
+            'user_id' => 'firebase_uid_1',
             'post_id' => 3,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('comments')->insert([
-            'user_id' => 2,
+            'user_id' => 'firebase_uid_2',
             'post_id' => 3,
             'comment' => 'これはテストコメントです',
             'created_at' => now(),

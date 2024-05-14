@@ -13,21 +13,21 @@ class PostsTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('posts')->insert([
-            'user_id' => 1,
+            'user_id' => 'firebase_uid_1',
             'body' => 'テスト投稿１',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('posts')->insert([
-            'user_id' => 2,
+            'user_id' => 'firebase_uid_2',
             'body' => 'テスト投稿２',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('posts')->insert([
-            'user_id' => 3,
+            'user_id' => 'firebase_uid_3',
             'body' => 'テスト投稿３',
             'created_at' => now(),
             'updated_at' => now(),
