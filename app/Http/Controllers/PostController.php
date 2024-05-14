@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['user', 'likes'])->get();
+        $posts = Post::with(['user', 'likes'])->orderBy('created_at', 'desc')->get();
         return response()->json(['posts' => $posts], 200);
     }
 

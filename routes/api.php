@@ -12,7 +12,7 @@ use App\Http\Controllers\CommentController;
 // })->middleware('auth:sanctum');
 
 
-Route::get('/getUserNames', [UserController::class, 'getUserNames']);
+Route::get('/get-user-names', [UserController::class, 'getUserNames']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/posts/{id}', [PostController::class, 'show']);

@@ -15,7 +15,7 @@ export const CommentForm = ({ addComment, user, comments }: { addComment: Functi
         const fetchUserNames = async () => {
             try {
                 const userIds = comments.map((comment) => comment.user_id);
-                const response = await axios.get("/api/getUserNames", { params: { userIds } });
+                const response = await axios.get("/api/get-user-names", { params: { userIds } });
                 setUserNames(response.data.userNames);
             } catch (error) {
                 console.error("Failed to fetch user names:", error);

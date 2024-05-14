@@ -39,6 +39,24 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        DB::table('users')->insert([
+            'id' => 'firebase_uid_4',
+            'name' => '光彦',
+            'email' => 'hikaru@example.com',
+            'password' => Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 'firebase_uid_5',
+            'name' => 'キツネ🦊',
+            'email' => 'kitsuneko@example.com',
+            'password' => Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
 
