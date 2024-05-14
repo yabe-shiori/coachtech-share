@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import PrimaryButton from "./PrimaryButton";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { SubmitHandler, FieldValues } from "react-hook-form/dist/types";
+import PrimaryButton from "./PrimaryButton";
 import { Post } from "../pages/Index";
 
 export interface Comment {

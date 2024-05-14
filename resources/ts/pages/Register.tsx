@@ -1,4 +1,3 @@
-import React from "react";
 import { Guest } from "../layouts/GuestLayout";
 import { useForm } from "react-hook-form";
 import TextInput from "../components/TextInput";
@@ -30,7 +29,6 @@ export const Register = () => {
 
             const uid = user.uid;
 
-            // Firestoreにユーザー情報を保存
             const db = getFirestore();
             await addDoc(collection(db, "users"), {
                 email: user.email,
@@ -52,7 +50,6 @@ export const Register = () => {
                 navigate("/", { state: { user: { uid: user.uid, name: data.name, email: data.email } } });
             } else {
                 console.error("ユーザー登録が失敗しました");
-                // 失敗した場合の処理
             }
         } catch (error: any) {
             console.error("エラーが発生しました", error);

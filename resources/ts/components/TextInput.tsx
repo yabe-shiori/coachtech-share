@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, InputHTMLAttributes } from 'react';
+import  { forwardRef, useEffect, useRef, InputHTMLAttributes } from 'react';
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     isFocused?: boolean;

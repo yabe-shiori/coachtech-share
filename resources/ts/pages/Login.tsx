@@ -1,4 +1,3 @@
-import React from "react";
 import { Guest } from "../layouts/GuestLayout";
 import TextInput from "../components/TextInput";
 import PrimaryButton from "../components/PrimaryButton";
@@ -34,7 +33,7 @@ export const Login = () => {
             navigate("/", { state: { user: userInfo } });
         } catch (error: any) {
             console.error("ログインエラー:", error.message);
-           alert('ログインに失敗しました。')
+            alert('ログインに失敗しました。')
         }
     };
 
