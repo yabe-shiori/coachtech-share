@@ -11,17 +11,9 @@
 
 ## 主な機能　　
 - 会員登録・ログイン
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
+- 投稿の追加・削除
+- いいね追加・削除
+- コメント追加
 
 <br />
 
@@ -42,12 +34,21 @@
 .env.exampleファイルをコピーして.envファイルを作成し、必要な環境変数を設定します。  
 `cp .env.example .env`  
 
+タイムゾーンの変更  
+APP_TIMEZONE=Asia/Tokyo  
+
+言語の変更  
+APP_LOCALE=ja
+APP_FALLBACK_LOCALE=ja
+APP_FAKER_LOCALE=ja_JP  
+
+データベースの設定  
 DB_CONNECTION=mysql  
 DB_HOST=mysql  
 DB_PORT=3306  
-DB_DATABASE=rese 
+DB_DATABASE=laravel
 DB_USERNAME=sail  
-DB_PASSWORD=password  
+DB_PASSWORD=password    
 
 
 ### 5. Docker環境のセットアップ
