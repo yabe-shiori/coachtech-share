@@ -5,9 +5,7 @@
 **はじめに - このプロジェクトのビジョン**　　
 
 
-
-![トップ画像]()
-
+![トップ画像](https://github.com/yabe-shiori/coachtech-share/assets/142664073/3c940400-efa9-484d-a078-4edddc930338)
 
 ## 主な機能　　
 - 会員登録・ログイン
@@ -34,15 +32,15 @@
 .env.exampleファイルをコピーして.envファイルを作成し、必要な環境変数を設定します。  
 `cp .env.example .env`  
 
-タイムゾーンの変更  
+##### タイムゾーンの変更
 APP_TIMEZONE=Asia/Tokyo  
 
-言語の変更  
-APP_LOCALE=ja
-APP_FALLBACK_LOCALE=ja
-APP_FAKER_LOCALE=ja_JP  
+##### 言語の変更
+APP_LOCALE=ja  
+APP_FALLBACK_LOCALE=ja  
+APP_FAKER_LOCALE=ja_JP    
 
-データベースの設定  
+##### データベースの設定
 DB_CONNECTION=mysql  
 DB_HOST=mysql  
 DB_PORT=3306  
@@ -90,10 +88,8 @@ laravelSailを使用してDocker環境をセットアップします。
 
 | Category          | Technology Stack                                     |
 | ----------------- | --------------------------------------------------   |
-| Frontend          | npm, Tailwind CSS                                    |
-| Infrastructure    | Amazon Web Services                                  |
+| Frontend          | React, TypeScript, npm, Tailwind CSS                                    |
 | Backend           | Laravel, PHP                                         |
-| Infrastructure    | Amazon Web Services                                  |
 | Database          | MySQL                                                |
 | Environment setup | Docker, Laravel Sail                                 |
 | etc.              | Git, GitHub                                          |
@@ -103,7 +99,7 @@ laravelSailを使用してDocker環境をセットアップします。
 
 ## ER図
 
-
+![ER図](https://github.com/yabe-shiori/coachtech-share/assets/142664073/dfb6b5d5-c8d5-47c9-88e5-a22885bfe839)
 
 <br />
 
