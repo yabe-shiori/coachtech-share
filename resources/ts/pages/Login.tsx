@@ -22,21 +22,19 @@ export const Login = () => {
             const user = userCredential.user;
             console.log("ログインに成功しました", user);
 
-            // ユーザーの表示名を取得する
             const currentUser = auth.currentUser;
             const displayName = currentUser ? currentUser.displayName : null;
 
             const userInfo = {
                 uid: user.uid,
-                name: displayName, // ユーザーの表示名を設定
+                name: displayName,
                 email: user.email,
             };
 
-            // ユーザー情報をstateとして持って遷移
             navigate("/", { state: { user: userInfo } });
         } catch (error: any) {
             console.error("ログインエラー:", error.message);
-            // ログインエラーの場合の処理
+           alert('ログインに失敗しました。')
         }
     };
 
