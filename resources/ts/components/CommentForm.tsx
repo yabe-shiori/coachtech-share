@@ -3,10 +3,15 @@ import PrimaryButton from "./PrimaryButton";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { SubmitHandler, FieldValues } from "react-hook-form/dist/types";
+import { Post } from "../pages/Index";
 
+export interface Comment {
+    id: number;
+    comment: string;
+    user_id: string;
+}
 
-
-export const CommentForm = ({ addComment, user, comments }: { addComment: Function, user: any, comments: any[] }) => {
+export const CommentForm = ({ addComment, user, comments, post }: { addComment: Function, user: any, comments: Comment[], post: Post }) => {
     const { register, handleSubmit: handleSubmitForm, reset, formState: { errors } } = useForm();
 
     const [userNames, setUserNames] = useState<{ [key: string]: string }>({});

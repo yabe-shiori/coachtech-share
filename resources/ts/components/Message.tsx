@@ -4,14 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Post } from "../pages/Index";
 
-interface User {
+export interface User {
     name: string;
 }
 
 interface MessageProps {
     post: Post;
     user: User;
-    likes: { user_id: number }[];
+    likes: { id: number; user_id: string }[];
     onDeletePost: (postId: number) => void;
     onLike: (postId: number) => void;
     showDetailButton?: boolean;

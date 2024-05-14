@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SideNav } from "../components/SideNav";
 import { Message } from "../components/Message";
 import { CommentForm } from "../components/CommentForm";
+import { Post } from "../pages/Index";
+import { Comment } from "../components/CommentForm";
 
 export const PostDetail = () => {
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState<Post | null>(null);
     const [postCreated, setPostCreated] = useState(false);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState<Comment[]>([]);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -40,19 +42,19 @@ export const PostDetail = () => {
 
     const handleLikePost = async (postId: number) => {
         try {
-            const existingLikeIndex = post.likes.findIndex(
-                (like) => like.user_id === user.uid
-            );
+            if (!post) {
+                console.error("Post is null");
+                return;
+            }
 
-            if (existingLikeIndex !== -1) {
-                await axios.delete(
-                    `/api/likes/${post.likes[existingLikeIndex].id}`
-                );
-            } else {
+            const existingLike = post.likes.find((like) => like.user_id === user.uid);
+            if (!existingLike) {
                 await axios.post("/api/likes", {
                     user_id: user.uid,
                     post_id: postId,
                 });
+            } else {
+                await axios.delete(`/api/likes/${existingLike.id}`);
             }
 
             setPostCreated(!postCreated);
@@ -61,9 +63,9 @@ export const PostDetail = () => {
         }
     };
 
-    const addComment = async (commentData) => {
+    const addComment = async (commentData: any) => {
         try {
-            const commentWithUserId = { ...commentData, user_id: user.uid, post_id: post.id };
+            const commentWithUserId = { ...commentData, user_id: user.uid, post_id: post?.id };
             const response = await axios.post("/api/comments", commentWithUserId);
             setComments([...comments, response.data.comment]);
         } catch (error) {
