@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { SubmitHandler, FieldValues } from "react-hook-form/dist/types";
 
-export const CommentForm = ({ addComment, user, comments }) => {
+
+
+export const CommentForm = ({ addComment, user, comments }: { addComment: Function, user: any, comments: any[] }) => {
     const { register, handleSubmit: handleSubmitForm, reset, formState: { errors } } = useForm();
 
-    const [userNames, setUserNames] = useState({});
+    const [userNames, setUserNames] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
         const fetchUserNames = async () => {
@@ -21,7 +24,7 @@ export const CommentForm = ({ addComment, user, comments }) => {
         fetchUserNames();
     }, [comments]);
 
-    const handleSubmit = async (data) => {
+    const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             await addComment({ comment: data.comment, user: user });
             reset();

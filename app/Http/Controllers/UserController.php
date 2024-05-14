@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-     public function show($id)
+    public function show($id)
     {
         $user = User::findOrFail($id);
         return response()->json($user);
@@ -19,17 +19,17 @@ class UserController extends Controller
         $users = User::whereIn('id', $userIds)->pluck('name', 'id');
         return response()->json(['userNames' => $users]);
     }
-    
-   public function register(Request $request)
-   {
-       $userData = $request->only(['name', 'email', 'password', 'uid']);
-       $user = new User();
-       $user->id = $userData['uid'];
-       $user->name = $userData['name'];
-       $user->email = $userData['email'];
-       $user->password = bcrypt($userData['password']);
-       $user->save();
 
-       return response()->json(['user' => $user], 201);
-   }
+    public function register(Request $request)
+    {
+        $userData = $request->only(['name', 'email', 'password', 'uid']);
+        $user = new User();
+        $user->id = $userData['uid'];
+        $user->name = $userData['name'];
+        $user->email = $userData['email'];
+        $user->password = bcrypt($userData['password']);
+        $user->save();
+
+        return response()->json(['user' => $user], 201);
+    }
 }
