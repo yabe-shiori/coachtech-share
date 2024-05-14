@@ -73,7 +73,7 @@ export const Index = () => {
                 <SideNav user={user} handleCreatePost={() => setPostCreated(!postCreated)} />
             </div>
             <div className="w-3/4">
-                <p className="text-2xl font-bold p-2">ホーム</p>
+                <p className="text-xl font-bold p-4">ホーム</p>
                 <div>
                     {posts.map((post) => (
                         <Message

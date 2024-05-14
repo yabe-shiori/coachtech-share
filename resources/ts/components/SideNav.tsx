@@ -61,22 +61,22 @@ export const SideNav: React.FC<Props> = ({ user, handleCreatePost }) => {
     };
 
     return (
-        <div className="bg-gray-900 text-white p-5">
+        <div className="bg-gray-900 text-white pt-5 px-3">
             <div>
-                <img src="/icons/logo.png" alt="Logo" className="w-20" />
+                <img src="/icons/logo.png" alt="Logo" className="w-24" />
             </div>
             <div className="flex items-center mt-4">
-                <img src="/icons/home.png" className="w-6 mr-2" />
+                <img src="/icons/home.png" className="w-6 mr-4" />
                 <Link to={`/`} state={{ user: user }} className="cursor-pointer">ホーム</Link>
             </div>
             <div className="flex items-center mt-4">
-                <img src="/icons/logout.png" className="w-6 mr-2 cursor-pointer" onClick={handleLogout} />
+                <img src="/icons/logout.png" className="w-6 mr-4 cursor-pointer" onClick={handleLogout} />
                 <button onClick={handleLogout}>ログアウト</button>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                 <p>シェア</p>
                 <textarea
-                    className="w-full h-36 my-2 p-2 rounded bg-gray-800 text-white outline-none"
+                    className="w-full h-28 my-2 p-2 rounded-xl bg-gray-900 text-white outline-none border border-white"
                     {...register("postContent", { required: true, maxLength: 120 })}
                 ></textarea>
                 {errors.postContent && errors.postContent.type === "required" && (

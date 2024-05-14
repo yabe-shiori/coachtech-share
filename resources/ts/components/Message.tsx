@@ -44,20 +44,20 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
     };
 
     return (
-        <div className="bg-gray-900 p-5 border border-white cursor-pointer break-words w-11/12">
+        <div className="bg-gray-900 p-5 border border-white cursor-pointer break-words w-95">
             <div className="flex">
-                <p className="text-white font-bold text-lg mr-4">
+                <p className="text-white font-bold text-lg mr-3">
                     {userName}
                 </p>
                 <img
                     src="/icons/heart.png"
-                    className="w-8 h-8 cursor-pointer"
+                    className="w-6 h-6 cursor-pointer"
                     onClick={handleLike}
                 />
                 <p className="text-white mx-3"> {post.likes.length}</p>
                 <img
                     src="/icons/cross.png"
-                    className="w-8 h-8 cursor-pointer mr-12"
+                    className="w-6 h-6 cursor-pointer mr-10"
                     onClick={handleDeleteClick}
                 />
                 <Link
@@ -68,11 +68,11 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
                     <img
                         src="/icons/detail.png"
                         alt="Detail"
-                        className="w-8 h-8 cursor-pointer"
+                        className="w-6 h-6 cursor-pointer"
                     />
                 </Link>
             </div>
-            <p className="text-white">{body}</p>
+            <p className="mt-2 text-white">{body}</p>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const AuthHeader = () => {
     return (
         <div className="bg-gray-800">
-            <nav className="flex justify-between p-6">
+            <nav className="flex justify-between py-4 pl-4 pr-8">
                 <div>
                     <img src="/icons/logo.png" alt="Logo" className="w-36" />
                 </div>

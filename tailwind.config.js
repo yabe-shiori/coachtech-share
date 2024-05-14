@@ -13,6 +13,9 @@ module.exports = {
                 customPurpleHover: "rgb(71, 14, 189)",
                 customPurpleActive: "rgb(61, 4, 179)",
             },
+            width: {
+                95: "95%",
+            },
         },
     },
     plugins: [],
