@@ -66,8 +66,10 @@ export const SideNav: React.FC<Props> = ({ user, handleCreatePost }) => {
                 <img src="/icons/logo.png" alt="Logo" className="w-24" />
             </div>
             <div className="flex items-center mt-4">
-                <img src="/icons/home.png" className="w-6 mr-4" />
-                <Link to={`/`} state={{ user: user }} className="cursor-pointer">ホーム</Link>
+                <Link to={`/`} state={{ user: user }} className="flex items-center cursor-pointer">
+                    <img src="/icons/home.png" className="w-6 mr-4" />
+                    ホーム
+                </Link>
             </div>
             <div className="flex items-center mt-4">
                 <img src="/icons/logout.png" className="w-6 mr-4 cursor-pointer" onClick={handleLogout} />
