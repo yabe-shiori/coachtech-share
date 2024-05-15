@@ -19,7 +19,6 @@ export const Login = () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
             const user = userCredential.user;
-            console.log("ログインに成功しました", user);
 
             const currentUser = auth.currentUser;
             const displayName = currentUser ? currentUser.displayName : null;

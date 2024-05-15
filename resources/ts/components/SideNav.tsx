@@ -54,7 +54,6 @@ export const SideNav: React.FC<Props> = ({ user, handleCreatePost }) => {
             const auth = getAuth();
             await signOut(auth);
             navigate("/login");
-            console.log("ログアウトしました");
         } catch (error) {
             console.error("ログアウトエラー:", error);
         }

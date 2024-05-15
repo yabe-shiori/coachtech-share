@@ -45,7 +45,6 @@ export const Register = () => {
             });
 
             if (response.ok) {
-                console.log("ユーザー登録が成功しました");
 
                 navigate("/", { state: { user: { uid: user.uid, name: data.name, email: data.email } } });
             } else {

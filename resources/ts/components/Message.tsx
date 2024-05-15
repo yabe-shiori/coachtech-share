@@ -20,8 +20,6 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
     const { id, body, user_id } = post;
     const [userName, setUserName] = useState('Unknown User');
 
-    console.log(user)
-
     useEffect(() => {
         const fetchUserName = async () => {
             try {
