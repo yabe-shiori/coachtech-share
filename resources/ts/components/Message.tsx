@@ -44,7 +44,7 @@ export const Message: React.FC<MessageProps> = ({ post, user, onDeletePost, onLi
     };
 
     return (
-        <div className="bg-gray-900 p-5 border border-white cursor-pointer break-words w-95">
+        <div className="bg-gray-900 p-3 border border-white cursor-pointer break-words w-95">
             <div className="flex">
                 <p className="text-white font-bold text-lg mr-3">
                     {userName}
