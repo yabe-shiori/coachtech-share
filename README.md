@@ -85,6 +85,9 @@ laravelSailを使用してDocker環境をセットアップします。
 <br />  
 
 ## 注意事項: 
+Seederを利用して初期データでユーザーを作成していますが、firebaseでの認証は行っていません。
+ログインする場合は、新たにユーザーを作成して、作成したユーザーのメールアドレスとパスワードでログインしてください。
+
 
 
 <br />
@@ -101,6 +104,8 @@ laravelSailを使用してDocker環境をセットアップします。
 
 <br />
 
+## テーブル設計
+![テーブル設計画像](https://github.com/yabe-shiori/coachtech-share/assets/142664073/709224c5-06b1-49cb-801a-0379ba14bf48)
 
 ## ER図
 
