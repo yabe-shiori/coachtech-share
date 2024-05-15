@@ -15,8 +15,8 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 'firebase_uid_1',
-            'name' => 'キラキラ星太郎✨',
-            'email' => 'taro@example.com',
+            'name' => 'ふりかけ🍙',
+            'email' => 'hurikake@example.com',
             'password' => Hash::make('password'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -24,8 +24,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 'firebase_uid_2',
-            'name' => 'ふわふわ🐻クマ次郎',
-            'email' => 'jiro@example.com',
+            'name' => 'クマ次郎🐻',
+            'email' => 'kuma@example.com',
             'password' => Hash::make('password'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -33,8 +33,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 'firebase_uid_3',
-            'name' => 'にこにこ😊🐰ウサギ三郎',
-            'email' => 'saburo@example.com',
+            'name' => 'kinako🐰',
+            'email' => 'kinako@example.com',
             'password' => Hash::make('password'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -42,8 +42,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 'firebase_uid_4',
-            'name' => '光彦',
-            'email' => 'hikaru@example.com',
+            'name' => 'お餅🍡',
+            'email' => 'omoti@example.com',
             'password' => Hash::make('password'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 'firebase_uid_5',
-            'name' => 'キツネ🦊',
+            'name' => 'キツネ@Hokkaido🦊',
             'email' => 'kitsuneko@example.com',
             'password' => Hash::make('password'),
             'created_at' => now(),
