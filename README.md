@@ -116,7 +116,7 @@ Seederを利用して初期データでユーザーを作成していますが�
 <br />
 
 ## テーブル設計
-![テーブル設計画像](https://github.com/yabe-shiori/coachtech-share/assets/142664073/709224c5-06b1-49cb-801a-0379ba14bf48)
+![テーブル設計画像](https://github.com/yabe-shiori/coachtech-share/assets/142664073/1ced81b4-a340-4f40-b027-78d5788f0b7b)
 
 ## ER図
 
