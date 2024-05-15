@@ -63,7 +63,9 @@ export const CommentForm = ({ addComment, user, comments, post }: { addComment: 
                             }
                         })}
                     />
-                    {errors.comment && <p className="text-red-500">{errors.comment.message}</p>}
+                    {errors.comment && typeof errors.comment === 'object' && errors.comment.message && (
+                        <p className="text-red-500">{(errors.comment.message as string)}</p>
+                    )}
                     <div className="text-right">
                         <PrimaryButton type="submit">コメント</PrimaryButton>
                     </div>
