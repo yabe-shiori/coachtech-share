@@ -53,11 +53,11 @@ APP_FAKER_LOCALE=ja_JP
 デフォルトではSQLiteが設定されていますが、MySQLを使用するように変更します。  
 以下の手順に従って設定を変更してください。  
 
-１.DB_CONNECTION=sqlite の行をコメントアウトまたは削除します。  
+１.DB_CONNECTION=sqlite の行をmysqlに変更します。  
+DB_CONNECTION=mysql  
 
 ２.次に、以下の行をコメントアウトから外して、MySQLの接続情報を設定します。  
-  
-DB_CONNECTION=mysql  
+   
 DB_HOST=mysql  
 DB_PORT=3306  
 DB_DATABASE=laravel
